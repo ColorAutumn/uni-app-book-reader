@@ -2,6 +2,8 @@ import type {BookItemData} from "@/utils/typings";
 
 export class useBookShelfStore {
 
+    keyName = "bookShelf"
+
     isExitShelf = async (bookUrlList: string): Promise<boolean> => {
         const bookList = await this.getBookList()
         return bookList.some((book) => {
@@ -23,7 +25,7 @@ export class useBookShelfStore {
     getBookList = async (): Promise<BookItemData[]> => {
         const bookList: BookItemData[] = []
         uni.getStorage({
-            key: "bookShelf",
+            key: this.keyName,
             success: (res) => {
                 const tempBookList: BookItemData[] = res.data
                 bookList.push(...tempBookList)
@@ -39,7 +41,7 @@ export class useBookShelfStore {
         book_list.push(book)
         let result = false
         uni.setStorage({
-            key: "bookShelf",
+            key: this.keyName,
             data: book_list,
             success: () => {
                 console.log(`存储《${book.articlename}》成功`)
@@ -51,13 +53,27 @@ export class useBookShelfStore {
         })
         return result
     }
+
+    setBookShelf = async (bookList: BookItemData[]) => {
+        uni.setStorage({
+            key: this.keyName,
+            data: bookList,
+            success: () => {
+                console.log(`批量存储书架成功`)
+            },
+            fail: () => {
+                console.log(`批量存储书架失败`)
+            }
+        })
+    }
+
     removeBook = async (bookUrlList: string) => {
         const book_list = await this.getBookList()
         const index = book_list.findIndex((book) => book.url_list === bookUrlList)
         if (index !== -1) {
             book_list.splice(index, 1)
             uni.setStorage({
-                key: "bookShelf",
+                key: this.keyName,
                 data: book_list,
                 success: () => {
                     console.log(`删除《${bookUrlList}》成功`)
@@ -68,4 +84,4 @@ export class useBookShelfStore {
             })
         }
     }
-};
+}

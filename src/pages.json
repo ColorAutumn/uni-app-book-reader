@@ -23,6 +23,18 @@
       "style": {
         "navigationBarTitleText": "章节名"
       }
+    },
+    {
+      "path": "pages/myInfo/MyInfo",
+      "style": {
+        "navigationBarTitleText": "个人信息"
+      }
+    },
+    {
+      "path": "pages/myInfo/Register",
+      "style": {
+        "navigationBarTitleText": "注册"
+      }
     }
   ],
   "globalStyle": {
@@ -45,11 +57,21 @@
     "list": [
       {
         "pagePath": "pages/index/Index",
-        "text": "书架"
+        "text": "书架",
+        "iconPath": "static/images/tabBar/book_shelf.png",
+        "selectedIconPath": "static/images/tabBar/book_shelf_selected.png"
       },
       {
         "pagePath": "pages/bookStore/BookStore",
-        "text": "书城"
+        "text": "书城",
+        "iconPath": "static/images/tabBar/book_store.png",
+        "selectedIconPath": "static/images/tabBar/book_store_selected.png"
+      },
+      {
+        "pagePath": "pages/myInfo/MyInfo",
+        "text": "我的",
+        "iconPath": "static/images/tabBar/my.png",
+        "selectedIconPath": "static/images/tabBar/my_selected.png"
       }
     ]
   }

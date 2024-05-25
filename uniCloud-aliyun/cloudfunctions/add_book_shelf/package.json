@@ -1,0 +1,7 @@
+{
+  "name": "add_book_shelf",
+  "dependencies": {},
+  "extensions": {
+    "uni-cloud-jql": {}
+  }
+}

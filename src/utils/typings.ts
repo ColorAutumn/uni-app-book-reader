@@ -16,3 +16,18 @@ export interface Category {
     bookList: BookItemData[]
     cachedPage: number
 }
+
+export interface CloudResultData {
+    code: number,
+    message: string
+}
+
+export interface UserInfo {
+    username: string,
+    loginStatus: boolean
+}
+
+export interface UserShelf {
+    username: string,
+    bookList: BookItemData[]
+}

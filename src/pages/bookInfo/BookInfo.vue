@@ -38,7 +38,7 @@
 import {onLoad} from "@dcloudio/uni-app";
 import {getBookByUrlListService} from "@/api/books";
 import {ref} from "vue";
-import type {BookChapterData, BookItemData} from "@/utils/typings";
+import type {BookChapterData, BookItemData, UserInfo} from "@/utils/typings";
 import {useBookShelfStore} from "@/stores/bookShelf";
 
 const book = ref<BookItemData>({
@@ -51,7 +51,7 @@ const book = ref<BookItemData>({
 const bookChapterList = ref<BookChapterData[]>([])
 let bookId = ''
 const isExitShelf = ref(false)
-onLoad((params) => {
+onLoad(async (params) => {
   bookId = params?.book_id
   uni.getStorage({
     key: `/book/${bookId}/`,
@@ -60,7 +60,7 @@ onLoad((params) => {
       isExitShelf.value = await bookShelfStore.isExitShelf(`/book/${bookId}/`)
     }
   })
-  getBookChapterList(book.value.url_list)
+  await getBookChapterList(book.value.url_list)
 })
 const getBookChapterList = async (bookUrl: string) => {
   await uni.showToast({
@@ -106,6 +106,47 @@ const addOrRemoveWithShelf = async () => {
   if (isExitShelf.value) {
     // 移出
     await bookShelfStore.removeBook(`/book/${bookId}/`)
+    // 获取本地登录信息
+    const result: UserInfo = JSON.parse((await uni.getStorage({key: 'userInfo',})).data)
+    console.log(result)
+
+    if (result.loginStatus) {
+      await uniCloud.callFunction({
+        name: "add_book_shelf",
+        data: {
+          username: result.username,
+          bookShelf: await bookShelfStore.getBookList()
+        },
+        success: (res) => {
+          console.log("云端删除成功" + res)
+        },
+        fail: (err) => {
+          console.log(err)
+        }
+      })
+    }
+    // uni.getStorage({
+    //   key: 'userInfo',
+    //   success: async (res) => {
+    //     const loginInfo: UserInfo = JSON.parse(res.data)
+    //     if (loginInfo.loginStatus) {
+    //       await uniCloud.callFunction({
+    //         name: "add_book_shelf",
+    //         data: {
+    //           username: loginInfo.username,
+    //           bookShelf: await bookShelfStore.getBookList()
+    //         },
+    //         success: (res) => {
+    //           console.log("云端删除成功" + res)
+    //         },
+    //         fail: (err) => {
+    //           console.log(err)
+    //         }
+    //       })
+    //     }
+    //   }
+    // })
+
   } else {
     // 加入
     await bookShelfStore.addBook(book.value)

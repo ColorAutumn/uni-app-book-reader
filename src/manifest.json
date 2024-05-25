@@ -1,6 +1,6 @@
 {
-    "name" : "",
-    "appid" : "",
+    "name" : "BookReader",
+    "appid" : "__UNI__73C2008",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -65,8 +65,8 @@
     "mp-toutiao" : {
         "usingComponents" : true
     },
-    "uniStatistics": {  
-        "enable": false
+    "uniStatistics" : {
+        "enable" : false
     },
     "vueVersion" : "3"
 }
