@@ -1,0 +1,56 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/Index",
+      "style": {
+        "navigationBarTitleText": "书架"
+      }
+    },
+    {
+      "path": "pages/bookStore/BookStore",
+      "style": {
+        "navigationBarTitleText": "书城"
+      }
+    },
+    {
+      "path": "pages/bookInfo/BookInfo",
+      "style": {
+        "navigationBarTitleText": "书籍详情"
+      }
+    },
+    {
+      "path": "pages/bookChapter/BookChapter",
+      "style": {
+        "navigationBarTitleText": "章节名"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+    }
+  },
+  "tabBar": {
+    "color": "#333333",
+    "selectedColor": "#007AFF",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/Index",
+        "text": "书架"
+      },
+      {
+        "pagePath": "pages/bookStore/BookStore",
+        "text": "书城"
+      }
+    ]
+  }
+}
